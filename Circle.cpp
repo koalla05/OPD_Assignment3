@@ -42,7 +42,7 @@ void Circle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 }
 
 
-std::string Circle::getInfo(int &id) {
+std::string Circle::getInfo() {
     return std::to_string(id) + " circle " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(radius);
 }
 

@@ -56,7 +56,7 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 }
 
 
-std::string Triangle::getInfo(int& id) {
+std::string Triangle::getInfo() {
    return std::to_string(id) + " square " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(height);
 }
 

@@ -41,13 +41,13 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     }
 
     if (shape == "triangle") {
-        figure = std::make_shared<Triangle>(x, y, height, color, is_filled, figures.size());
+        figure = std::make_shared<Triangle>(x, y, height, color, is_filled, figures.size() + 1);
     }
     else if (shape == "square") {
-        figure = std::make_shared<Square>(x, y, height, color, is_filled, figures.size());
+        figure = std::make_shared<Square>(x, y, height, color, is_filled, figures.size() + 1);
     }
     else if (shape == "circle") {
-        figure = std::make_shared<Circle>(x, y, height, color, is_filled, figures.size());
+        figure = std::make_shared<Circle>(x, y, height, color, is_filled, figures.size() + 1);
     }
     else {
         std::cout << "Something is wrong with parameters" << std::endl;
@@ -82,7 +82,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
 
     std::shared_ptr<Figure> figure;
     if (shape == "line") {
-        figure = std::make_shared<Line>(x0, y0, x1, y1, color, is_filled, figures.size());
+        figure = std::make_shared<Line>(x0, y0, x1, y1, color, is_filled, figures.size() + 1);
     }
     else {
         std::cout << "Something is wrong with parameters" << std::endl;
@@ -139,7 +139,7 @@ void Board::list() {
         return;
     }
     for (int i = 0 ; i < figures.size(); ++i) {
-        std::cout << figures[i] -> getInfo(i) << std::endl;
+        std::cout << figures[i] -> getInfo() << std::endl;
     }
 }
 
@@ -151,7 +151,7 @@ void Board::save(std::string &path) {
     }
 
     for (int i = 0; i < figures.size(); ++i) {
-        outFile << figures[i]->getInfo(i) << std::endl;
+        outFile << figures[i]->getInfo() << std::endl;
     }
 
     outFile.close();
@@ -189,4 +189,22 @@ void Board::load(std::string &path) {
 
 void Board::shapes() {
     std::cout << "triangle x, y, height" << std::endl << "circle x, y, radius" << std::endl << "square x, y, height" << std::endl << "line x0, y0, x1, y1" << std::endl;
+}
+
+void Board::select(int id) {
+    if (id > 0 && id <= figures.size()) {
+        std::cout << figures[id - 1]->getInfo() << std::endl;
+    }
+    else {
+        std::cout << "Something wrong with enetered id" << std::endl;
+    }
+}
+
+void Board::select(int x, int y) {
+    if (grid->grid[x][y].id != 0) {
+        select(grid->grid[x][y].id);
+    }
+    else {
+        std::cout << "Sorry, shape is not found by these coordinates" << std::endl;
+    }
 }

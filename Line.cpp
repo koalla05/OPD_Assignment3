@@ -27,7 +27,7 @@ void Line::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 }
 
 
-std::string Line::getInfo(int& id) {
+std::string Line::getInfo() {
     return std::to_string(id) + " square " + std::to_string(x0) + " " + std::to_string(y0) + " " + std::to_string(x1) + " " + std::to_string(y1);
 }
 

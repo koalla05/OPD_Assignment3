@@ -14,6 +14,19 @@ void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
     else if (command == "list"){
         board -> list();
     }
+    else if (command == "select") {
+        int arg1, arg2;
+        if (!(iss >> arg1)) {
+            std::cout << "Error: Invalid input for shape and arguments!" << std::endl;
+            return;
+        }
+        if (!(iss >> arg2)) {
+            board -> select(arg1);
+        }
+        else {
+            board -> select(arg1, arg2);
+        }
+    }
     else if (command == "shapes") {
         board -> shapes();
     }

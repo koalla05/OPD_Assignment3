@@ -17,6 +17,9 @@ public:
     void add(std::string& shape, std::string& option, std::string& color, int x, int y, int height);
     void add(std::string& shape, std::string& option, std::string& color, int x0, int y0, int x1, int y1);
 
+    void select(int id);
+    void select(int x, int y);
+
     void undo();
 
     void clear();

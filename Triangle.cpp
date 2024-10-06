@@ -12,12 +12,20 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
 
       if (posY < grid->BOARD_HEIGHT) {
          if (leftMost >= 0 && leftMost < grid -> BOARD_WIDTH) {
+            if (symbol == ' ') {
+               grid->grid[posY][leftMost].id = 0;
+            }
             grid->grid[posY][leftMost].color = color;
             grid->grid[posY][leftMost].symbol = symbol;
+            grid->grid[posY][leftMost].id = id;
          }
          if (rightMost >= 0 && rightMost < grid -> BOARD_WIDTH && leftMost != rightMost) {
+            if (symbol == ' ') {
+               grid->grid[posY][rightMost].id = 0;
+            }
             grid->grid[posY][rightMost].color = color;
             grid->grid[posY][rightMost].symbol = symbol;
+            grid->grid[posY][rightMost].id = id;
          }
       }
    }
@@ -26,6 +34,9 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
       int baseX = x - height + 1 + i;
       int baseY = y + height - 1;
       if (baseX >= 0 && baseX < grid->BOARD_WIDTH && baseY < grid->BOARD_HEIGHT) {
+         if (symbol == ' ') {
+            grid->grid[baseY][baseX].id = 0;
+         }
          grid->grid[baseY][baseX].color = color;
          grid->grid[baseY][baseX].symbol = symbol;
          grid->grid[baseY][baseX].id = id;
@@ -46,6 +57,9 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
       if (posY < grid->BOARD_HEIGHT) {
          for (int posX = leftMost; posX <= rightMost; ++posX) {
             if (posX >= 0 && posX < grid->BOARD_WIDTH) {
+               if (symbol == ' ') {
+                  grid->grid[posY][posX].id = 0;
+               }
                grid->grid[posY][posX].color = color;
                grid->grid[posY][posX].symbol = symbol;
                grid->grid[posY][posX].id = id;

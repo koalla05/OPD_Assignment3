@@ -12,9 +12,13 @@ void Circle::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
                 int gridY = y + i;
 
                 if (gridX >= 0 && gridX < grid->BOARD_WIDTH && gridY >= 0 && gridY < grid->BOARD_HEIGHT) {
+                    if (symbol == ' ') {
+                        grid->grid[gridY][gridX].id = 0;
+                    }
                     grid->grid[gridY][gridX].color = color;
                     grid->grid[gridY][gridX].symbol = symbol;
                     grid->grid[gridY][gridX].id = id;
+
                 }
             }
         }
@@ -32,6 +36,9 @@ void Circle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
                 int gridY = y + i;
 
                 if (gridX >= 0 && gridX < grid->BOARD_WIDTH && gridY >= 0 && gridY < grid->BOARD_HEIGHT) {
+                    if (symbol == ' ') {
+                        grid->grid[gridY][gridX].id = 0;
+                    }
                     grid->grid[gridY][gridX].color = color;
                     grid->grid[gridY][gridX].symbol = symbol;
                     grid->grid[gridY][gridX].id = id;

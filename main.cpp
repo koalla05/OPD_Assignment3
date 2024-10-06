@@ -27,6 +27,9 @@ void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
             board -> select(arg1, arg2);
         }
     }
+    else if (command == "remove") {
+        board -> remove();
+    }
     else if (command == "shapes") {
         board -> shapes();
     }

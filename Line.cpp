@@ -9,6 +9,9 @@ void Line::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
         int y = y0;
         for (int i = x0; i < x1; ++i) {
             if (i < grid -> BOARD_WIDTH && y < grid -> BOARD_HEIGHT){
+                if (symbol == ' ') {
+                    grid->grid[y][i].id = 0;
+                }
                 grid->grid[y][i].color = color;
                 grid->grid[y][i].symbol = symbol;
                 grid->grid[y][i].id = id;

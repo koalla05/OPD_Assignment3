@@ -8,6 +8,7 @@ class Board {
 public:
     std::vector<std::shared_ptr<Figure>> figures;
     std::shared_ptr<Grid> grid;
+    int selected_id = 0;
     Board() {
         grid = std::make_shared<Grid>();
     }
@@ -19,6 +20,8 @@ public:
 
     void select(int id);
     void select(int x, int y);
+
+    void remove();
 
     void undo();
 

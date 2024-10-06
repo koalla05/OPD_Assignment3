@@ -192,8 +192,9 @@ void Board::shapes() {
 }
 
 void Board::select(int id) {
-    if (id > 0 && id <= figures.size()) {
+    if (id > 0 && id <= figures.size() && figures[id - 1] != nullptr) {
         std::cout << figures[id - 1]->getInfo() << std::endl;
+        selected_id ++;
     }
     else {
         std::cout << "Something wrong with enetered id" << std::endl;
@@ -208,3 +209,22 @@ void Board::select(int x, int y) {
         std::cout << "Sorry, shape is not found by these coordinates" << std::endl;
     }
 }
+
+void Board::remove() {
+    if (selected_id == 0) {
+        std::cout << "No figure was selected" << std::endl;
+        return;
+    }
+    std::shared_ptr<Figure> removed_figure = figures[selected_id - 1];
+    if (removed_figure -> is_filled) removed_figure -> fill_draw(grid, ' ');
+    else removed_figure -> frame_draw(grid, ' ');
+    figures[selected_id - 1] = nullptr;
+
+    for (const auto& figure: figures) {
+        if (figure) {
+            if (figure->is_filled) figure->fill_draw(grid, '*');
+            else figure->frame_draw(grid, '*');
+        }
+    }
+}
+

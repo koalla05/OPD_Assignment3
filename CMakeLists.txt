@@ -12,4 +12,5 @@ add_executable(OPD_Assignment3 main.cpp
         Line.cpp
         Square.cpp
         Circle.cpp
+        Line.cpp
 )

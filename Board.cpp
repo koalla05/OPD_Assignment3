@@ -5,86 +5,101 @@
 #include <sstream>
 
 void Board::print() {
-    for (const auto& row : grid->grid) {
-        for (const auto& cell : row) {
-            std::cout << cell;
+    for (int i = 0; i < grid->BOARD_HEIGHT; ++i) {
+        for (int j = 0; j < grid->BOARD_WIDTH; ++j) {
+            const Cell& cell = grid->grid[i][j];
+            if (cell.color == "red") {
+                std::cout << "\033[31m" << cell.symbol << "\033[0m";
+            } else if (cell.color == "green") {
+                std::cout << "\033[32m" << cell.symbol << "\033[0m";
+            } else if (cell.color == "blue") {
+                std::cout << "\033[34m" << cell.symbol << "\033[0m";
+            } else if (cell.color == "yellow") {
+                std::cout << "\033[33m" << cell.symbol << "\033[0m";
+            } else if (cell.color == "magenta") {
+                std::cout << "\033[35m" << cell.symbol << "\033[0m";
+            } else if (cell.color == "cyan") {
+                std::cout << "\033[36m" << cell.symbol << "\033[0m";
+            } else if (cell.color == "white") {
+                std::cout << "\033[37m" << cell.symbol << "\033[0m";
+            } else {
+                std::cout << cell.symbol;
+            }
         }
         std::cout << std::endl;
     }
 }
 
-void Board::add(std::string& shape, int x, int y, int height) {
+void Board::add(std::string& shape, std::string& option, std::string& color, int x, int y, int height) {
     bool isSame = false;
+    std::shared_ptr<Figure> figure;
+    bool is_filled;
+    if (option == "fill") is_filled = true;
+    else if (option == "frame") is_filled = false;
+    else {
+        std::cout << "Something wrong woth parameters" << std::endl;
+    }
+
     if (shape == "triangle") {
-        std::shared_ptr<Figure> figure = std::make_shared<Triangle>(x, y, height);
-        for (auto& element: figures) {
-            if (element->isSameFigure(figure)) {
-                isSame = true;
-            }
-        }
-        if (!isSame) {
-            figures.push_back(figure);
-            figure->draw(grid, '*');
-        }
-        else {
-            std::cout << "Such a figure already exists" << std::endl;
-        }
+        figure = std::make_shared<Triangle>(x, y, height, color, is_filled);
     }
     else if (shape == "square") {
-        std::shared_ptr<Figure> figure = std::make_shared<Square>(x, y, height);
-        for (auto& element: figures) {
-            if (element->isSameFigure(figure)) {
-                isSame = true;
-            }
-        }
-        if (!isSame) {
-            figures.push_back(figure);
-            figure->draw(grid, '*');
-        }
-        else {
-            std::cout << "Such a figure already exists" << std::endl;
-        }
+        figure = std::make_shared<Square>(x, y, height, color, is_filled);
     }
     else if (shape == "circle") {
-        std::shared_ptr<Figure> figure = std::make_shared<Circle>(x, y, height);
-        for (auto& element: figures) {
-            if (element->isSameFigure(figure)) {
-                isSame = true;
-            }
-        }
-        if (!isSame) {
-            figures.push_back(figure);
-            figure->draw(grid, '*');
-        }
-        else {
-            std::cout << "Such a figure already exists" << std::endl;
-        }
+        figure = std::make_shared<Circle>(x, y, height, color, is_filled);
     }
     else {
         std::cout << "Something is wrong with parameters" << std::endl;
     }
+
+    for (auto& element: figures) {
+        if (element->isSameFigure(figure)) {
+            isSame = true;
+        }
+    }
+
+    if (!isSame) {
+        figures.push_back(figure);
+        if (figure->is_filled) figure->fill_draw(grid, color[0]);
+        else figure ->frame_draw(grid, color[0]);
+    }
+    else {
+        std::cout << "Such a figure already exists" << std::endl;
+    }
+
 }
 
-void Board::add(std::string& shape, int x0, int y0, int x1, int y1) {
+void Board::add(std::string& shape, std::string& option, std::string& color, int x0, int y0, int x1, int y1) {
     bool isSame = false;
+    bool is_filled = false;
+    if (option == "fill") is_filled = true;
+    else if (option == "frame") is_filled = false;
+    else {
+        std::cout << "Something wrong woth parameters" << std::endl;
+    }
+
+    std::shared_ptr<Figure> figure;
     if (shape == "line") {
-        std::shared_ptr<Figure> figure = std::make_shared<Line>(x0, y0, x1, y1);
-        for (auto& element: figures) {
-            if (element->isSameFigure(figure)) {
-                isSame = true;
-            }
-        }
-        if (!isSame) {
-            figures.push_back(figure);
-            figure->draw(grid, '*');
-        }
-        else {
-            std::cout << "Such a figure already exists" << std::endl;
-        }
+        figure = std::make_shared<Line>(x0, y0, x1, y1, color, is_filled);
     }
     else {
         std::cout << "Something is wrong with parameters" << std::endl;
     }
+    for (auto& element: figures) {
+            if (element->isSameFigure(figure)) {
+                isSame = true;
+            }
+        }
+    if (!isSame && figure) {
+        figures.push_back(figure);
+        if (figure->is_filled) figure->fill_draw(grid, color[0]);
+        else figure ->frame_draw(grid, color[0]);
+    }
+    else {
+        std::cout << "Such a figure already exists" << std::endl;
+    }
+
 }
 
 
@@ -93,16 +108,23 @@ void Board::undo() {
         std::cout << "Sorry, no figures yet" << std::endl;
         return;
     }
-    figures.back()->draw(grid, ' ');
+    std::shared_ptr<Figure> removed_figure = figures.back();
+
+    if (removed_figure->is_filled) removed_figure->fill_draw(grid, ' ');
+    else removed_figure->frame_draw(grid, ' ');
     figures.pop_back();
+
     for (const auto& figure: figures) {
-        figure->draw(grid, '*');
+        if (figure->is_filled) figure->fill_draw(grid, '*');
+        else figure->frame_draw(grid, '*');
     }
 }
 
 void Board::clear() {
     while (!figures.empty()) {
-        figures.back()->draw(grid, ' ');
+        std::shared_ptr<Figure> removed_figure = figures.back();
+        if (removed_figure->is_filled) removed_figure->fill_draw(grid, ' ');
+        else removed_figure->frame_draw(grid, ' ');
         figures.pop_back();
     }
 }
@@ -143,17 +165,17 @@ void Board::load(std::string &path) {
     while (std::getline(inFile, line)) {
         std::istringstream iss(line);
         int id, arg1, arg2, arg3, arg4;
-        std::string shape;
+        std::string shape, option, color;
 
-        if (!(iss >> id >> shape >> arg1 >> arg2 >> arg3)) {
+        if (!(iss >> id >> shape >> option >> color >> arg1 >> arg2 >> arg3)) {
             std::cout << "Error" << std::endl;
             continue;
         }
         if (iss >> arg4) {
-                add(shape, arg1, arg2, arg3, arg4);
+                add(shape, option, color, arg1, arg2, arg3, arg4);
         }
         else {
-            add(shape, arg1, arg2, arg3);
+            add(shape, option, color, arg1, arg2, arg3);
         }
     }
 

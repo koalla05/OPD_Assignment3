@@ -4,11 +4,16 @@
 #include <vector>
 
 
+struct Cell {
+    char symbol = ' ';
+    std::string color;
+};
+
 class Grid {
 public:
     const int BOARD_WIDTH = 80;
     const int BOARD_HEIGHT = 25;
-    std::vector<std::vector<char>> grid;
+    std::vector<std::vector<Cell>> grid;
 
-    Grid(): grid(BOARD_HEIGHT, std::vector<char>(BOARD_WIDTH, ' ')) {}
+    Grid() : grid(BOARD_HEIGHT, std::vector<Cell>(BOARD_WIDTH)) {}
 };

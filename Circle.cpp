@@ -15,7 +15,6 @@ void Circle::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
                     if (symbol == ' ') {
                         grid->grid[gridY][gridX].id = 0;
                     }
-                    grid->grid[gridY][gridX].color = color;
                     grid->grid[gridY][gridX].symbol = symbol;
                     grid->grid[gridY][gridX].id = id;
 
@@ -39,7 +38,6 @@ void Circle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
                     if (symbol == ' ') {
                         grid->grid[gridY][gridX].id = 0;
                     }
-                    grid->grid[gridY][gridX].color = color;
                     grid->grid[gridY][gridX].symbol = symbol;
                     grid->grid[gridY][gridX].id = id;
                 }

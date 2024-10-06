@@ -15,7 +15,6 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
             if (symbol == ' ') {
                grid->grid[posY][leftMost].id = 0;
             }
-            grid->grid[posY][leftMost].color = color;
             grid->grid[posY][leftMost].symbol = symbol;
             grid->grid[posY][leftMost].id = id;
          }
@@ -23,7 +22,6 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
             if (symbol == ' ') {
                grid->grid[posY][rightMost].id = 0;
             }
-            grid->grid[posY][rightMost].color = color;
             grid->grid[posY][rightMost].symbol = symbol;
             grid->grid[posY][rightMost].id = id;
          }
@@ -37,7 +35,6 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
          if (symbol == ' ') {
             grid->grid[baseY][baseX].id = 0;
          }
-         grid->grid[baseY][baseX].color = color;
          grid->grid[baseY][baseX].symbol = symbol;
          grid->grid[baseY][baseX].id = id;
       }
@@ -60,7 +57,6 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
                if (symbol == ' ') {
                   grid->grid[posY][posX].id = 0;
                }
-               grid->grid[posY][posX].color = color;
                grid->grid[posY][posX].symbol = symbol;
                grid->grid[posY][posX].id = id;
             }

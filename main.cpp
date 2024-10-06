@@ -30,6 +30,14 @@ void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
     else if (command == "remove") {
         board -> remove();
     }
+    else if (command == "paint") {
+        std::string color;
+        if (!(iss >> color)) {
+            std::cout << "Sorry, something wrong with parameters" << std::endl;
+            return;
+        }
+        board -> paint(color);
+    }
     else if (command == "shapes") {
         board -> shapes();
     }
@@ -101,6 +109,9 @@ int main() {
     board->print();
     std::cout << "--------------------------------------------------" << std::endl;
     board -> list();
+    // board -> select(4);
+    // board -> remove();
+    // board -> print();
     //
     // std::string path = "test.txt";
     // board->save(path);

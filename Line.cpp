@@ -12,7 +12,6 @@ void Line::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
                 if (symbol == ' ') {
                     grid->grid[y][i].id = 0;
                 }
-                grid->grid[y][i].color = color;
                 grid->grid[y][i].symbol = symbol;
                 grid->grid[y][i].id = id;
                 if (d > 0) {

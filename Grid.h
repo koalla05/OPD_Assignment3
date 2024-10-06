@@ -6,7 +6,6 @@
 
 struct Cell {
     char symbol = ' ';
-    std::string color;
     int id;
 };
 

@@ -23,6 +23,8 @@ public:
 
     void remove();
 
+    void paint(const std::string &color);
+
     void undo();
 
     void clear();

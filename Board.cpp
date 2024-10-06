@@ -8,21 +8,26 @@ void Board::print() {
     for (int i = 0; i < grid->BOARD_HEIGHT; ++i) {
         for (int j = 0; j < grid->BOARD_WIDTH; ++j) {
             const Cell& cell = grid->grid[i][j];
-            if (cell.color == "red") {
-                std::cout << "\033[31m" << cell.symbol << "\033[0m";
-            } else if (cell.color == "green") {
-                std::cout << "\033[32m" << cell.symbol << "\033[0m";
-            } else if (cell.color == "blue") {
-                std::cout << "\033[34m" << cell.symbol << "\033[0m";
-            } else if (cell.color == "yellow") {
-                std::cout << "\033[33m" << cell.symbol << "\033[0m";
-            } else if (cell.color == "magenta") {
-                std::cout << "\033[35m" << cell.symbol << "\033[0m";
-            } else if (cell.color == "cyan") {
-                std::cout << "\033[36m" << cell.symbol << "\033[0m";
-            } else if (cell.color == "white") {
-                std::cout << "\033[37m" << cell.symbol << "\033[0m";
-            } else {
+            if (cell.id > 0 && figures[cell.id - 1]) {
+                if (figures[cell.id - 1] -> color  == "red") {
+                    std::cout << "\033[31m" << cell.symbol << "\033[0m";
+                } else if (figures[cell.id - 1] -> color == "green") {
+                    std::cout << "\033[32m" << cell.symbol << "\033[0m";
+                } else if (figures[cell.id - 1] -> color == "blue") {
+                    std::cout << "\033[34m" << cell.symbol << "\033[0m";
+                } else if (figures[cell.id - 1] -> color == "yellow") {
+                    std::cout << "\033[33m" << cell.symbol << "\033[0m";
+                } else if (figures[cell.id - 1] -> color == "magenta") {
+                    std::cout << "\033[35m" << cell.symbol << "\033[0m";
+                } else if (figures[cell.id - 1] -> color == "cyan") {
+                    std::cout << "\033[36m" << cell.symbol << "\033[0m";
+                } else if (figures[cell.id - 1] -> color == "white") {
+                    std::cout << "\033[37m" << cell.symbol << "\033[0m";
+                } else {
+                    std::cout << cell.symbol;
+                }
+            }
+            else {
                 std::cout << cell.symbol;
             }
         }
@@ -138,8 +143,10 @@ void Board::list() {
         std::cout << "Sorry, no figures yet" << std::endl;
         return;
     }
-    for (int i = 0 ; i < figures.size(); ++i) {
-        std::cout << figures[i] -> getInfo() << std::endl;
+    for (const auto& figure: figures) {
+        if (figure) {
+            std::cout << figure -> getInfo() << std::endl;
+        }
     }
 }
 
@@ -226,5 +233,14 @@ void Board::remove() {
             else figure->frame_draw(grid, '*');
         }
     }
+}
+
+void Board::paint(const std::string &color) {
+    if (selected_id == 0) {
+        std::cout << "No figure was selected" << std::endl;
+        return;
+    }
+    std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
+    selected_figure->color = color;
 }
 

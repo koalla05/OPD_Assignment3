@@ -11,7 +11,6 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (symbol == ' ') {
                 grid->grid[bottomY][posX].symbol = 0;
             }
-            grid->grid[bottomY][posX].color = color;
             grid->grid[bottomY][posX].symbol = symbol;
             grid->grid[bottomY][posX].id = id;
         }
@@ -20,7 +19,6 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (symbol == ' ') {
                 grid->grid[bottomY][posX].id = 0;
             }
-            grid->grid[bottomY][posX].color = color;
             grid->grid[bottomY][posX].symbol = symbol;
             grid->grid[bottomY][posX].id = id;
         }
@@ -35,7 +33,6 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (symbol == ' ') {
                 grid->grid[posY][leftX].id = 0;
             }
-            grid->grid[posY][leftX].color = color;
             grid->grid[posY][leftX].symbol = symbol;
             grid->grid[posY][leftX].id = id;
         }
@@ -44,7 +41,6 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (symbol == ' ') {
                 grid->grid[posY][rightX].id = 0;
             }
-            grid->grid[posY][rightX].color = color;
             grid->grid[posY][rightX].symbol = symbol;
             grid->grid[posY][rightX].id = id;
         }
@@ -62,7 +58,6 @@ void Square::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
                 if (symbol == ' ') {
                     grid->grid[gridY][gridX].id = 0;
                 }
-                grid->grid[gridY][gridX].color = color;
                 grid->grid[gridY][gridX].symbol = symbol;
                 grid->grid[gridY][gridX].id = id;
             }

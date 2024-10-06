@@ -71,7 +71,7 @@ int main() {
     board->add(circle, fill, green, 10, 10, 5);
     board->add(circle, frame, red, 20, 10, 5);
 
-    board->add(square, fill, cyan, 0, 0, 5);
+    board->add(square, frame, cyan, 0, 0, 5);
     board->add(triangle, fill, color, 10, 1, 7);
     // board->add(triangle, 10, 1, 7);
     // board->add(line, 5, 10, 30, 80);

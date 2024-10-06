@@ -61,7 +61,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
 
     if (!isSame) {
         figures.push_back(figure);
-        if (figure->is_filled) figure->fill_draw(grid, color[0]);
+        if (figure -> is_filled) figure->fill_draw(grid, color[0]);
         else figure ->frame_draw(grid, color[0]);
     }
     else {
@@ -77,6 +77,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     else if (option == "frame") is_filled = false;
     else {
         std::cout << "Something wrong woth parameters" << std::endl;
+        return;
     }
 
     std::shared_ptr<Figure> figure;
@@ -94,7 +95,10 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     if (!isSame && figure) {
         figures.push_back(figure);
         if (figure->is_filled) figure->fill_draw(grid, color[0]);
-        else figure ->frame_draw(grid, color[0]);
+        else {
+            figure -> frame_draw(grid, color[0]);
+            std::cout << "Frame";
+        }
     }
     else {
         std::cout << "Such a figure already exists" << std::endl;

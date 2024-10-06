@@ -41,13 +41,13 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     }
 
     if (shape == "triangle") {
-        figure = std::make_shared<Triangle>(x, y, height, color, is_filled);
+        figure = std::make_shared<Triangle>(x, y, height, color, is_filled, figures.size());
     }
     else if (shape == "square") {
-        figure = std::make_shared<Square>(x, y, height, color, is_filled);
+        figure = std::make_shared<Square>(x, y, height, color, is_filled, figures.size());
     }
     else if (shape == "circle") {
-        figure = std::make_shared<Circle>(x, y, height, color, is_filled);
+        figure = std::make_shared<Circle>(x, y, height, color, is_filled, figures.size());
     }
     else {
         std::cout << "Something is wrong with parameters" << std::endl;
@@ -82,7 +82,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
 
     std::shared_ptr<Figure> figure;
     if (shape == "line") {
-        figure = std::make_shared<Line>(x0, y0, x1, y1, color, is_filled);
+        figure = std::make_shared<Line>(x0, y0, x1, y1, color, is_filled, figures.size());
     }
     else {
         std::cout << "Something is wrong with parameters" << std::endl;

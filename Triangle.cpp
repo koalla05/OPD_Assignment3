@@ -28,6 +28,7 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
       if (baseX >= 0 && baseX < grid->BOARD_WIDTH && baseY < grid->BOARD_HEIGHT) {
          grid->grid[baseY][baseX].color = color;
          grid->grid[baseY][baseX].symbol = symbol;
+         grid->grid[baseY][baseX].id = id;
       }
 
    }
@@ -47,6 +48,7 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (posX >= 0 && posX < grid->BOARD_WIDTH) {
                grid->grid[posY][posX].color = color;
                grid->grid[posY][posX].symbol = symbol;
+               grid->grid[posY][posX].id = id;
             }
          }
       }

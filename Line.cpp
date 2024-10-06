@@ -11,6 +11,7 @@ void Line::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
             if (i < grid -> BOARD_WIDTH && y < grid -> BOARD_HEIGHT){
                 grid->grid[y][i].color = color;
                 grid->grid[y][i].symbol = symbol;
+                grid->grid[y][i].id = id;
                 if (d > 0) {
                     y++;
                     d -= 2 * dx;

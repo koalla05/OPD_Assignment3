@@ -10,11 +10,13 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
         if (posX >= 0 && posX < grid->BOARD_WIDTH && topY >= 0 && topY < grid->BOARD_HEIGHT) {
             grid->grid[bottomY][posX].color = color;
             grid->grid[bottomY][posX].symbol = symbol;
+            grid->grid[bottomY][posX].id = id;
         }
 
         if (posX >= 0 && posX < grid->BOARD_WIDTH && bottomY >= 0 && bottomY < grid->BOARD_HEIGHT) {
             grid->grid[bottomY][posX].color = color;
             grid->grid[bottomY][posX].symbol = symbol;
+            grid->grid[bottomY][posX].id = id;
         }
     }
 
@@ -26,11 +28,13 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
         if (leftX >= 0 && leftX < grid->BOARD_WIDTH && posY >= 0 && posY < grid->BOARD_HEIGHT) {
             grid->grid[posY][leftX].color = color;
             grid->grid[posY][leftX].symbol = symbol;
+            grid->grid[posY][leftX].id = id;
         }
 
         if (rightX >= 0 && rightX < grid->BOARD_WIDTH && posY >= 0 && posY < grid->BOARD_HEIGHT) {
             grid->grid[posY][rightX].color = color;
             grid->grid[posY][rightX].symbol = symbol;
+            grid->grid[posY][rightX].id = id;
         }
     }
 }
@@ -45,6 +49,7 @@ void Square::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (gridX >= 0 && gridX < grid->BOARD_WIDTH && gridY >= 0 && gridY < grid->BOARD_HEIGHT) {
                 grid->grid[gridY][gridX].color = color;
                 grid->grid[gridY][gridX].symbol = symbol;
+                grid->grid[gridY][gridX].id = id;
             }
         }
     }

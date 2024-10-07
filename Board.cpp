@@ -9,20 +9,21 @@ void Board::print() {
         for (int j = 0; j < grid->BOARD_WIDTH; ++j) {
             const Cell& cell = grid->grid[i][j];
             if (cell.id > 0 && figures[cell.id - 1]) {
-                if (figures[cell.id - 1] -> color  == "red") {
-                    std::cout << "\033[31m" << cell.symbol << "\033[0m";
-                } else if (figures[cell.id - 1] -> color == "green") {
-                    std::cout << "\033[32m" << cell.symbol << "\033[0m";
-                } else if (figures[cell.id - 1] -> color == "blue") {
-                    std::cout << "\033[34m" << cell.symbol << "\033[0m";
-                } else if (figures[cell.id - 1] -> color == "yellow") {
-                    std::cout << "\033[33m" << cell.symbol << "\033[0m";
-                } else if (figures[cell.id - 1] -> color == "magenta") {
-                    std::cout << "\033[35m" << cell.symbol << "\033[0m";
-                } else if (figures[cell.id - 1] -> color == "cyan") {
-                    std::cout << "\033[36m" << cell.symbol << "\033[0m";
-                } else if (figures[cell.id - 1] -> color == "white") {
-                    std::cout << "\033[37m" << cell.symbol << "\033[0m";
+                std::string color = figures[cell.id - 1] -> color;
+                if (color  == "red") {
+                    std::cout << "\033[31m" << color[0] << "\033[0m";
+                } else if (color == "green") {
+                    std::cout << "\033[32m" << color[0] << "\033[0m";
+                } else if (color == "blue") {
+                    std::cout << "\033[34m" << color[0] << "\033[0m";
+                } else if ( color == "yellow") {
+                    std::cout << "\033[33m" << color[0] << "\033[0m";
+                } else if (color == "magenta") {
+                    std::cout << "\033[35m" << color[0] << "\033[0m";
+                } else if (color == "cyan") {
+                    std::cout << "\033[36m" << color[0] << "\033[0m";
+                } else if (color == "white") {
+                    std::cout << "\033[37m" << color[0] << "\033[0m";
                 } else {
                     std::cout << cell.symbol;
                 }
@@ -42,7 +43,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     if (option == "fill") is_filled = true;
     else if (option == "frame") is_filled = false;
     else {
-        std::cout << "Something wrong woth parameters" << std::endl;
+        std::cout << "Something wrong with parameters" << std::endl;
     }
 
     if (shape == "triangle") {
@@ -81,7 +82,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     if (option == "fill") is_filled = true;
     else if (option == "frame") is_filled = false;
     else {
-        std::cout << "Something wrong woth parameters" << std::endl;
+        std::cout << "Something wrong with parameters" << std::endl;
         return;
     }
 
@@ -92,6 +93,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     else {
         std::cout << "Something is wrong with parameters" << std::endl;
     }
+
     for (auto& element: figures) {
             if (element->isSameFigure(figure)) {
                 isSame = true;
@@ -100,33 +102,12 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
     if (!isSame && figure) {
         figures.push_back(figure);
         if (figure->is_filled) figure->fill_draw(grid, color[0]);
-        else {
-            figure -> frame_draw(grid, color[0]);
-            std::cout << "Frame";
-        }
+        else figure -> frame_draw(grid, color[0]);
     }
     else {
         std::cout << "Such a figure already exists" << std::endl;
     }
 
-}
-
-
-void Board::undo() {
-    if (figures.empty()) {
-        std::cout << "Sorry, no figures yet" << std::endl;
-        return;
-    }
-    std::shared_ptr<Figure> removed_figure = figures.back();
-
-    if (removed_figure->is_filled) removed_figure->fill_draw(grid, ' ');
-    else removed_figure->frame_draw(grid, ' ');
-    figures.pop_back();
-
-    for (const auto& figure: figures) {
-        if (figure->is_filled) figure->fill_draw(grid, '*');
-        else figure->frame_draw(grid, '*');
-    }
 }
 
 void Board::clear() {
@@ -201,7 +182,7 @@ void Board::shapes() {
 void Board::select(int id) {
     if (id > 0 && id <= figures.size() && figures[id - 1] != nullptr) {
         std::cout << figures[id - 1]->getInfo() << std::endl;
-        selected_id ++;
+        selected_id = id;
     }
     else {
         std::cout << "Something wrong with enetered id" << std::endl;
@@ -218,7 +199,7 @@ void Board::select(int x, int y) {
 }
 
 void Board::remove() {
-    if (selected_id == 0) {
+    if (selected_id == 0 || !figures[selected_id]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
@@ -236,11 +217,73 @@ void Board::remove() {
 }
 
 void Board::paint(const std::string &color) {
-    if (selected_id == 0) {
+    if (selected_id == 0 || !figures[selected_id]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
+
     std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
     selected_figure->color = color;
+
 }
+
+void Board::edit(int dimension) {
+    if (selected_id == 0 || !figures[selected_id]) {
+        std::cout << "No figure was selected" << std::endl;
+        return;
+    }
+
+    std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
+
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, ' ');
+    else selected_figure -> frame_draw(grid, ' ');
+
+    if (auto* circle = dynamic_cast<Circle*>(selected_figure.get())) {
+        circle->edit_dimension(dimension);
+    } else if (auto* triangle = dynamic_cast<Triangle*>(selected_figure.get())) {
+        triangle->edit_dimension(dimension);
+    } else if (auto* square = dynamic_cast<Square*>(selected_figure.get())) {
+        square->edit_dimension(dimension);
+    }
+    else std::cout << "Something wrong with parameters" << std::endl;
+
+    for (const auto& figure: figures) {
+        if (figure) {
+            if (figure->is_filled) figure->fill_draw(grid, '*');
+            else figure->frame_draw(grid, '*');
+        }
+    }
+}
+
+void Board::edit(int d1, int d2) {
+    if (selected_id == 0 || !figures[selected_id]) {
+        std::cout << "No figure was selected" << std::endl;
+        return;
+    }
+
+    std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
+
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, ' ');
+    else selected_figure -> frame_draw(grid, ' ');
+
+    if (auto* line = dynamic_cast<Line*>(selected_figure.get())) line -> edit_dimension(d1, d2);
+    else std::cout << "Something wrong with parameters" << std::endl;
+
+    for (const auto& figure: figures) {
+        if (figure) {
+            if (figure->is_filled) figure->fill_draw(grid, '*');
+            else figure->frame_draw(grid, '*');
+        }
+    }
+}
+
+
+void Board::move() {
+    if (selected_id == 0 || !figures[selected_id]) {
+        std::cout << "No figure was selected" << std::endl;
+        return;
+    }
+
+}
+
 

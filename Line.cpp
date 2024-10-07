@@ -12,8 +12,8 @@ void Line::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
                 if (symbol == ' ') {
                     grid->grid[y][i].id = 0;
                 }
+                else grid->grid[y][i].id = id;
                 grid->grid[y][i].symbol = symbol;
-                grid->grid[y][i].id = id;
                 if (d > 0) {
                     y++;
                     d -= 2 * dx;
@@ -39,4 +39,9 @@ bool Line::isSameFigure(std::shared_ptr<Figure> &other) {
         return x0 == ptr->x0 && y0 == ptr->y0 && x1 == ptr->x1 && y1 == ptr->y1;
     }
     return false;
+}
+
+void Line::edit_dimension(int d1, int d2) {
+    x1 = d1;
+    y1 = d2;
 }

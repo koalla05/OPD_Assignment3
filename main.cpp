@@ -38,11 +38,19 @@ void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
         }
         board -> paint(color);
     }
+    else if (command == "edit") {
+        int d1, d2;
+        if (!(iss >> d1)) {
+            std::cout << "Sorry, something wrong with parameters" << std::endl;
+            return;
+        }
+        if (iss >> d2) {
+            board -> edit(d1, d2);
+        }
+        else board -> edit(d1);
+    }
     else if (command == "shapes") {
         board -> shapes();
-    }
-    else if (command == "undo") {
-        board -> undo();
     }
     else if (command == "clear") {
         board -> clear();
@@ -93,6 +101,7 @@ int main() {
     std::string cyan = "cyan";
     std::string color = "color";
     std::string white = "white";
+    std::string magenta = "magenta";
     board->add(circle, fill, green, 10, 10, 5);
     board->add(circle, frame, red, 20, 10, 5);
 
@@ -109,6 +118,13 @@ int main() {
     board->print();
     std::cout << "--------------------------------------------------" << std::endl;
     board -> list();
+
+    board -> select(4);
+    board -> paint(magenta);
+    board -> print();
+    // std::cout << "--------------------------------------------------" << std::endl;
+    // board -> edit(2);
+    // board -> print();
     // board -> select(4);
     // board -> remove();
     // board -> print();

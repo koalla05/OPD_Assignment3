@@ -25,7 +25,10 @@ public:
 
     void paint(const std::string &color);
 
-    void undo();
+    void edit(int dimension);
+    void edit(int d1, int d2);
+
+    void move();
 
     void clear();
 

@@ -15,15 +15,15 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
             if (symbol == ' ') {
                grid->grid[posY][leftMost].id = 0;
             }
+            else grid->grid[posY][leftMost].id = id;
             grid->grid[posY][leftMost].symbol = symbol;
-            grid->grid[posY][leftMost].id = id;
          }
          if (rightMost >= 0 && rightMost < grid -> BOARD_WIDTH && leftMost != rightMost) {
             if (symbol == ' ') {
                grid->grid[posY][rightMost].id = 0;
             }
+            else grid->grid[posY][rightMost].id = id;
             grid->grid[posY][rightMost].symbol = symbol;
-            grid->grid[posY][rightMost].id = id;
          }
       }
    }
@@ -35,10 +35,9 @@ void Triangle::frame_draw(std::shared_ptr<Grid>& grid, char symbol) {
          if (symbol == ' ') {
             grid->grid[baseY][baseX].id = 0;
          }
+         else grid->grid[baseY][baseX].id = id;
          grid->grid[baseY][baseX].symbol = symbol;
-         grid->grid[baseY][baseX].id = id;
       }
-
    }
 }
 
@@ -57,8 +56,8 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
                if (symbol == ' ') {
                   grid->grid[posY][posX].id = 0;
                }
+               else grid->grid[posY][posX].id = id;
                grid->grid[posY][posX].symbol = symbol;
-               grid->grid[posY][posX].id = id;
             }
          }
       }
@@ -67,7 +66,7 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 
 
 std::string Triangle::getInfo() {
-   return std::to_string(id) + " square " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(height);
+   return std::to_string(id) + " triangle " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(height);
 }
 
 bool Triangle::isSameFigure(std::shared_ptr<Figure> &other) {
@@ -77,4 +76,9 @@ bool Triangle::isSameFigure(std::shared_ptr<Figure> &other) {
    }
    return false;
 }
+
+void Triangle::edit_dimension(int dimension) {
+   height = dimension;
+}
+
 

@@ -11,16 +11,16 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (symbol == ' ') {
                 grid->grid[bottomY][posX].symbol = 0;
             }
+            else grid->grid[bottomY][posX].id = id;
             grid->grid[bottomY][posX].symbol = symbol;
-            grid->grid[bottomY][posX].id = id;
         }
 
         if (posX >= 0 && posX < grid->BOARD_WIDTH && bottomY >= 0 && bottomY < grid->BOARD_HEIGHT) {
             if (symbol == ' ') {
                 grid->grid[bottomY][posX].id = 0;
             }
+            else grid->grid[bottomY][posX].id = id;
             grid->grid[bottomY][posX].symbol = symbol;
-            grid->grid[bottomY][posX].id = id;
         }
     }
 
@@ -33,16 +33,16 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
             if (symbol == ' ') {
                 grid->grid[posY][leftX].id = 0;
             }
+            else grid->grid[posY][leftX].id = id;
             grid->grid[posY][leftX].symbol = symbol;
-            grid->grid[posY][leftX].id = id;
         }
 
         if (rightX >= 0 && rightX < grid->BOARD_WIDTH && posY >= 0 && posY < grid->BOARD_HEIGHT) {
             if (symbol == ' ') {
                 grid->grid[posY][rightX].id = 0;
             }
+            else grid->grid[posY][rightX].id = id;
             grid->grid[posY][rightX].symbol = symbol;
-            grid->grid[posY][rightX].id = id;
         }
     }
 }
@@ -58,8 +58,8 @@ void Square::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
                 if (symbol == ' ') {
                     grid->grid[gridY][gridX].id = 0;
                 }
+                else grid->grid[gridY][gridX].id = id;
                 grid->grid[gridY][gridX].symbol = symbol;
-                grid->grid[gridY][gridX].id = id;
             }
         }
     }
@@ -76,6 +76,10 @@ bool Square::isSameFigure(std::shared_ptr<Figure> &other) {
         return x == ptr->x && y == ptr->y && height == ptr->height;
     }
     return false;
+}
+
+void Square::edit_dimension(int dimension) {
+    height = dimension;
 }
 
 

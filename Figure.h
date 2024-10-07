@@ -15,7 +15,6 @@ public:
     virtual void fill_draw(std::shared_ptr<Grid>& grid, char symbol) = 0;
     virtual std::string getInfo() = 0;
     virtual bool isSameFigure(std::shared_ptr<Figure>& other) = 0;
-    //virtual void edit_dimension(int dimension) = 0;
     Figure(bool filled, int id, std::string color) : is_filled(filled), id(id), color(std::move(color)) {}
 };
 
@@ -30,6 +29,7 @@ public:
     std::string getInfo() override;
     bool isSameFigure(std::shared_ptr<Figure>& other) override;
     void edit_dimension(int dimension);
+    void move(int d1, int d2);
 };
 
 class Circle: public Figure {
@@ -43,6 +43,7 @@ public:
     std::string getInfo() override;
     bool isSameFigure(std::shared_ptr<Figure>& other) override;
     void edit_dimension(int dimension);
+    void move(int d1, int d2);
 };
 
 
@@ -57,6 +58,7 @@ public:
     std::string getInfo() override;
     bool isSameFigure(std::shared_ptr<Figure>& other) override;
     void edit_dimension(int dimension);
+    void move(int d1, int d2);
 };
 
 
@@ -72,4 +74,5 @@ public:
     std::string getInfo() override;
     bool isSameFigure(std::shared_ptr<Figure>& other) override;
     void edit_dimension(int d1, int d2);
+    void move(int d1, int d2, int d3, int d4);
 };

@@ -81,4 +81,10 @@ void Triangle::edit_dimension(int dimension) {
    height = dimension;
 }
 
+void Triangle::move(int d1, int d2) {
+   x = d1;
+   y = d2;
+}
+
+
 

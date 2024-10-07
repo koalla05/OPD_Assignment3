@@ -49,6 +49,17 @@ void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
         }
         else board -> edit(d1);
     }
+    else if (command == "move") {
+        int d1, d2, d3, d4;
+        if (!(iss >> d1 >> d2)) {
+            std::cout << "Sorry, something wrong with parameters" << std::endl;
+            return;
+        }
+        if (!(iss >> d3 >> d4)) {
+            board -> move(d1, d2);
+        }
+        else board -> move(d1, d2, d3, d4);
+    }
     else if (command == "shapes") {
         board -> shapes();
     }

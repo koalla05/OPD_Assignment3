@@ -30,7 +30,7 @@ void Line::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 
 
 std::string Line::getInfo() {
-    return std::to_string(id) + " square " + std::to_string(x0) + " " + std::to_string(y0) + " " + std::to_string(x1) + " " + std::to_string(y1);
+    return std::to_string(id) + " line " + std::to_string(x0) + " " + std::to_string(y0) + " " + std::to_string(x1) + " " + std::to_string(y1);
 }
 
 bool Line::isSameFigure(std::shared_ptr<Figure> &other) {
@@ -45,3 +45,11 @@ void Line::edit_dimension(int d1, int d2) {
     x1 = d1;
     y1 = d2;
 }
+
+void Line::move(int d1, int d2, int d3, int d4) {
+    x0 = d1;
+    y0 = d2;
+    x1 = d3;
+    y1 = d4;
+}
+

@@ -253,6 +253,8 @@ void Board::edit(int dimension) {
             else figure->frame_draw(grid, '*');
         }
     }
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, '*');
+    else selected_figure -> frame_draw(grid, '*');
 }
 
 void Board::edit(int d1, int d2) {
@@ -275,15 +277,62 @@ void Board::edit(int d1, int d2) {
             else figure->frame_draw(grid, '*');
         }
     }
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, '*');
+    else selected_figure -> frame_draw(grid, '*');
 }
 
-
-void Board::move() {
+void Board::move(int x, int y) {
     if (selected_id == 0 || !figures[selected_id]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
 
+    std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
+
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, ' ');
+    else selected_figure -> frame_draw(grid, ' ');
+
+    if (auto* circle = dynamic_cast<Circle*>(selected_figure.get())) {
+        circle -> move(x, y);
+    } else if (auto* triangle = dynamic_cast<Triangle*>(selected_figure.get())) {
+        triangle -> move(x, y);
+    } else if (auto* square = dynamic_cast<Square*>(selected_figure.get())) {
+        square -> move(x, y);
+    }
+    else std::cout << "Something wrong with parameters" << std::endl;
+
+    for (const auto& figure: figures) {
+        if (figure) {
+            if (figure->is_filled) figure->fill_draw(grid, '*');
+            else figure->frame_draw(grid, '*');
+        }
+    }
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, '*');
+    else selected_figure -> frame_draw(grid, '*');
+}
+
+
+void Board::move(int d1, int d2, int d3, int d4) {
+    if (selected_id == 0 || !figures[selected_id]) {
+        std::cout << "No figure was selected" << std::endl;
+        return;
+    }
+    std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
+
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, ' ');
+    else selected_figure -> frame_draw(grid, ' ');
+
+    if (auto* line = dynamic_cast<Line*>(selected_figure.get())) line -> move(d1, d2, d3, d4);
+    else std::cout << "Something wrong with parameters" << std::endl;
+
+    for (const auto& figure: figures) {
+        if (figure) {
+            if (figure->is_filled) figure->fill_draw(grid, '*');
+            else figure->frame_draw(grid, '*');
+        }
+    }
+    if (selected_figure -> is_filled) selected_figure -> fill_draw(grid, '*');
+    else selected_figure -> frame_draw(grid, '*');
 }
 
 

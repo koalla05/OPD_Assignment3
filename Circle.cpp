@@ -61,3 +61,8 @@ bool Circle::isSameFigure(std::shared_ptr<Figure> &other) {
 void Circle::edit_dimension(int dimension) {
     radius = dimension;
 }
+
+void Circle::move(int d1, int d2) {
+    x = d1;
+    y = d2;
+}

@@ -28,7 +28,8 @@ public:
     void edit(int dimension);
     void edit(int d1, int d2);
 
-    void move();
+    void move(int x, int y);
+    void move(int d1, int d2, int d3, int d4);
 
     void clear();
 

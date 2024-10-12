@@ -1,0 +1,7 @@
+1 triangle fill white 10 1 7
+2 circle frame yellow 10 15 5
+3 line fill white 10 10 20 20
+5 square frame yellow 15 10 7
+7 square fill blue 15 15 7
+4 square fill magenta 10 15 7
+6 square fill cyan 10 10 7

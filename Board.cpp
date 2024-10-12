@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 void Board::print() {
     for (int i = 0; i < grid->BOARD_HEIGHT; ++i) {
@@ -67,6 +68,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
 
     if (!isSame) {
         figures.push_back(figure);
+        figureOrder.push_back(figure -> id);
         if (figure -> is_filled) figure->fill_draw(grid, color[0]);
         else figure ->frame_draw(grid, color[0]);
     }
@@ -101,6 +103,7 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
         }
     if (!isSame && figure) {
         figures.push_back(figure);
+        figureOrder.push_back(figure -> id);
         if (figure->is_filled) figure->fill_draw(grid, color[0]);
         else figure -> frame_draw(grid, color[0]);
     }
@@ -138,8 +141,8 @@ void Board::save(std::string &path) {
         return;
     }
 
-    for (int i = 0; i < figures.size(); ++i) {
-        outFile << figures[i]->getInfo() << std::endl;
+    for (const int id: figureOrder) {
+        outFile << figures[id - 1]->getInfo() << std::endl;
     }
 
     outFile.close();
@@ -147,6 +150,8 @@ void Board::save(std::string &path) {
 
 
 void Board::load(std::string &path) {
+    figureOrder.clear();
+    figures.clear();
     std::ifstream inFile(path);
     std::string line;
 
@@ -183,6 +188,13 @@ void Board::select(int id) {
     if (id > 0 && id <= figures.size() && figures[id - 1] != nullptr) {
         std::cout << figures[id - 1]->getInfo() << std::endl;
         selected_id = id;
+        if (figures[selected_id - 1] -> is_filled) figures[selected_id - 1] -> fill_draw(grid, '*');
+        else figures[selected_id - 1] -> frame_draw(grid, '*');
+        auto it = std::find(figureOrder.begin(), figureOrder.end(), id);
+        if (it != figureOrder.end()) {
+            figureOrder.erase(it);
+            figureOrder.push_back(id);
+        }
     }
     else {
         std::cout << "Something wrong with enetered id" << std::endl;
@@ -207,6 +219,10 @@ void Board::remove() {
     if (removed_figure -> is_filled) removed_figure -> fill_draw(grid, ' ');
     else removed_figure -> frame_draw(grid, ' ');
     figures[selected_id - 1] = nullptr;
+    auto it = std::find(figureOrder.begin(), figureOrder.end(), selected_id);
+    if (it != figureOrder.end()) {
+        figureOrder.erase(it);
+    }
 
     for (const auto& figure: figures) {
         if (figure) {
@@ -224,7 +240,6 @@ void Board::paint(const std::string &color) {
 
     std::shared_ptr<Figure> selected_figure = figures[selected_id - 1];
     selected_figure->color = color;
-
 }
 
 void Board::edit(int dimension) {

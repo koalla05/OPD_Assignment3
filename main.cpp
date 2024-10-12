@@ -113,26 +113,31 @@ int main() {
     std::string color = "color";
     std::string white = "white";
     std::string magenta = "magenta";
-    board->add(circle, fill, green, 10, 10, 5);
-    board->add(circle, frame, red, 20, 10, 5);
+    std::string yellow = "yellow";
+    std::string blue = "blue";
 
-    board->add(square, frame, cyan, 0, 0, 5);
+    // board->add(circle, fill, green, 10, 10, 5);
+    // board->add(circle, frame, red, 20, 10, 5);
+    //
+    // board->add(square, frame, cyan, 0, 0, 5);
     board->add(triangle, fill, white, 10, 1, 7);
-    // board->add(triangle, 10, 1, 7);
-    // board->add(line, 5, 10, 30, 80);
-    // board->add(line, 5, 10, 30, 80);
-    // board->add(triangle, 25, 10, 3);
-    // board->add(square, 15, 15, 30);
-    // board->add(square, 15, 15, 30);
-    // board->add(triangle, 19, 5, 10);
-    // board->add(line, 0, 1, 9, 4);
+    // board -> add(circle, fill, red, 10, 10, 5);
+    // board -> add(circle, fill, green, 15, 15, 5);
+    // board -> add(circle, fill, cyan, 15, 10, 5);
+    board -> add(circle, frame, yellow, 10, 15, 5);
+    board -> add(line, fill, white, 10, 10, 20, 20);
+
+    board->add(square, fill, magenta, 10, 15, 7);
+    board->add(square, frame, yellow, 15, 10, 7);
+    board->add(square, fill, cyan, 10, 10, 7);
+    board->add(square, fill, blue, 15, 15, 7);
     board->print();
     std::cout << "--------------------------------------------------" << std::endl;
     board -> list();
-
-    board -> select(4);
-    board -> paint(magenta);
-    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    // board -> select(4);
+    // board -> paint(magenta);
+    // board -> print();
     // std::cout << "--------------------------------------------------" << std::endl;
     // board -> edit(2);
     // board -> print();
@@ -166,6 +171,7 @@ int main() {
             break;
         }
         proccessCommand(input, board);
+        std::cout << "--------------------------------------------------" << std::endl;
     }
     return 0;
 }

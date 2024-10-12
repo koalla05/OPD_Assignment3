@@ -9,10 +9,11 @@ void Square::frame_draw(std::shared_ptr<Grid> &grid, char symbol) {
 
         if (posX >= 0 && posX < grid->BOARD_WIDTH && topY >= 0 && topY < grid->BOARD_HEIGHT) {
             if (symbol == ' ') {
-                grid->grid[bottomY][posX].symbol = 0;
+                grid->grid[topY][posX].id = 0;
             }
-            else grid->grid[bottomY][posX].id = id;
-            grid->grid[bottomY][posX].symbol = symbol;
+            else grid->grid[topY][posX].id = id;
+
+            grid->grid[topY][posX].symbol = symbol;
         }
 
         if (posX >= 0 && posX < grid->BOARD_WIDTH && bottomY >= 0 && bottomY < grid->BOARD_HEIGHT) {
@@ -67,7 +68,10 @@ void Square::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 
 
 std::string Square::getInfo() {
-    return std::to_string(id) + " square " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(height);
+    std::string option;
+    if (is_filled == true) option = "fill";
+    else option = "frame";
+    return std::to_string(id) + ' ' + type + ' ' + option + ' ' + color + ' ' + std::to_string(x) + ' ' + std::to_string(y) + ' ' + std::to_string(height);
 }
 
 bool Square::isSameFigure(std::shared_ptr<Figure> &other) {

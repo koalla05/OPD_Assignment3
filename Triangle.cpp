@@ -66,7 +66,10 @@ void Triangle::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 
 
 std::string Triangle::getInfo() {
-   return std::to_string(id) + " triangle " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(height);
+   std::string option;
+   if (is_filled == true) option = "fill";
+   else option = "frame";
+   return std::to_string(id) + ' ' + type + ' ' + option + ' ' + color + ' ' + std::to_string(x) + ' ' + std::to_string(y) + ' ' + std::to_string(height);
 }
 
 bool Triangle::isSameFigure(std::shared_ptr<Figure> &other) {

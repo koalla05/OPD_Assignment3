@@ -10,12 +10,13 @@ public:
     bool is_filled;
     int id;
     std::string color;
+    std::string type;
     virtual ~Figure() = default;
     virtual void frame_draw(std::shared_ptr<Grid>& grid, char symbol) = 0;
     virtual void fill_draw(std::shared_ptr<Grid>& grid, char symbol) = 0;
     virtual std::string getInfo() = 0;
     virtual bool isSameFigure(std::shared_ptr<Figure>& other) = 0;
-    Figure(bool filled, int id, std::string color) : is_filled(filled), id(id), color(std::move(color)) {}
+    Figure(bool filled, int id, std::string color, std::string type) : is_filled(filled), id(id), color(std::move(color)), type(type) {}
 };
 
 class Triangle: public Figure {
@@ -23,7 +24,7 @@ class Triangle: public Figure {
     int y;
     int height;
 public:
-    Triangle(int x, int y, int height, std::string color, const bool is_filled, const int id): Figure(is_filled, id, std::move(color)), x(x), y(y), height(height){}
+    Triangle(int x, int y, int height, std::string color, const bool is_filled, const int id): Figure(is_filled, id, std::move(color), "triangle"), x(x), y(y), height(height){}
     void frame_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     void fill_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     std::string getInfo() override;
@@ -37,7 +38,7 @@ class Circle: public Figure {
     int y;
     int radius;
 public:
-    Circle(int x, int y, int height, std::string color, bool is_filled, const int id): Figure(is_filled, id, color), x(x), y(y), radius(height){}
+    Circle(int x, int y, int height, std::string color, bool is_filled, const int id): Figure(is_filled, id, color, "circle"), x(x), y(y), radius(height){}
     void frame_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     void fill_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     std::string getInfo() override;
@@ -52,7 +53,7 @@ class Square: public Figure {
     int y;
     int height;
 public:
-    Square(int x, int y, int height, std::string color, bool is_filled, const int id): Figure(is_filled, id, color), x(x), y(y), height(height){}
+    Square(int x, int y, int height, std::string color, bool is_filled, const int id): Figure(is_filled, id, color, "square"), x(x), y(y), height(height){}
     void frame_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     void fill_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     std::string getInfo() override;
@@ -68,7 +69,7 @@ class Line: public Figure {
     int x1;
     int y1;
 public:
-    Line(int x, int y, int v, int w, std::string color, bool is_filled, const int id): Figure(is_filled, id, color), x0(x), y0(y), x1(v), y1(w) {}
+    Line(int x, int y, int v, int w, std::string color, bool is_filled, const int id): Figure(is_filled, id, color, "line"), x0(x), y0(y), x1(v), y1(w) {}
     void frame_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     void fill_draw(std::shared_ptr<Grid>& grid, char symbol) override;
     std::string getInfo() override;

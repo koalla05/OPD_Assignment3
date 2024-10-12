@@ -30,7 +30,10 @@ void Line::fill_draw(std::shared_ptr<Grid> &grid, char symbol) {
 
 
 std::string Line::getInfo() {
-    return std::to_string(id) + " line " + std::to_string(x0) + " " + std::to_string(y0) + " " + std::to_string(x1) + " " + std::to_string(y1);
+    std::string option;
+    if (is_filled == true) option = "fill";
+    else option = "frame";
+    return std::to_string(id) + ' ' + type + ' ' + option + ' ' +  color + ' ' + std::to_string(x0) + ' ' + std::to_string(y0) + ' ' + std::to_string(x1) + ' ' + std::to_string(y1);
 }
 
 bool Line::isSameFigure(std::shared_ptr<Figure> &other) {

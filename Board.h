@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <list>
 #include <vector>
 #include <memory>
 #include "Figure.h"
@@ -7,6 +8,7 @@
 class Board {
 public:
     std::vector<std::shared_ptr<Figure>> figures;
+    std::list<int> figureOrder;
     std::shared_ptr<Grid> grid;
     int selected_id = 0;
     Board() {

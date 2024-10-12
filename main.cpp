@@ -116,52 +116,37 @@ int main() {
     std::string yellow = "yellow";
     std::string blue = "blue";
 
-    // board->add(circle, fill, green, 10, 10, 5);
-    // board->add(circle, frame, red, 20, 10, 5);
-    //
-    // board->add(square, frame, cyan, 0, 0, 5);
     board->add(triangle, fill, white, 10, 1, 7);
-    // board -> add(circle, fill, red, 10, 10, 5);
-    // board -> add(circle, fill, green, 15, 15, 5);
-    // board -> add(circle, fill, cyan, 15, 10, 5);
     board -> add(circle, frame, yellow, 10, 15, 5);
     board -> add(line, fill, white, 10, 10, 20, 20);
 
     board->add(square, fill, magenta, 10, 15, 7);
-    board->add(square, frame, yellow, 15, 10, 7);
+    board->add(square, fill, yellow, 15, 10, 7);
     board->add(square, fill, cyan, 10, 10, 7);
+    board->add(triangle, frame, red, 10, 10, 7);
     board->add(square, fill, blue, 15, 15, 7);
     board->print();
     std::cout << "--------------------------------------------------" << std::endl;
     board -> list();
     std::cout << "--------------------------------------------------" << std::endl;
-    // board -> select(4);
-    // board -> paint(magenta);
-    // board -> print();
-    // std::cout << "--------------------------------------------------" << std::endl;
-    // board -> edit(2);
-    // board -> print();
-    // board -> select(4);
-    // board -> remove();
-    // board -> print();
-    //
-    // std::string path = "test.txt";
-    // board->save(path);
-    // board->undo();
-    // board->print();
-    // std::cout << "--------------------------------------------------" << std::endl;
-    //
-    // board->list();
-    // std::cout << "--------------------------------------------------" << std::endl;
-    //
-    //
-    // board->clear();
-    // board->print();
-    // std::cout << "--------------------------------------------------" << std::endl;
-    //
-    // board->load(path);
-    // board->print();
-    // std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(100, 100);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(10, 10);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(6);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(10, 10);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> move(5, 7);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> edit(10);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(5);
+    board -> remove();
+    board -> clear();
+
 
     while (true) {
         std::cout << "Please, enter what you want to do: " << std::endl;

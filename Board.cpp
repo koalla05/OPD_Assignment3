@@ -114,12 +114,13 @@ void Board::add(std::string& shape, std::string& option, std::string& color, int
 }
 
 void Board::clear() {
-    while (!figures.empty()) {
-        std::shared_ptr<Figure> removed_figure = figures.back();
+    for (const int id: figureOrder) {
+        std::shared_ptr<Figure> removed_figure = figures[id - 1];
         if (removed_figure->is_filled) removed_figure->fill_draw(grid, ' ');
         else removed_figure->frame_draw(grid, ' ');
-        figures.pop_back();
     }
+    figures.clear();
+    figureOrder.clear();
 }
 
 void Board::list() {
@@ -202,7 +203,7 @@ void Board::select(int id) {
 }
 
 void Board::select(int x, int y) {
-    if (grid->grid[x][y].id != 0) {
+    if (x < grid -> BOARD_WIDTH && y < grid -> BOARD_HEIGHT && grid->grid[x][y].id != 0) {
         select(grid->grid[x][y].id);
     }
     else {

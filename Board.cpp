@@ -198,6 +198,7 @@ void Board::select(int id) {
         }
     }
     else {
+        selected_id = 0;
         std::cout << "Something wrong with enetered id" << std::endl;
     }
 }
@@ -234,7 +235,7 @@ void Board::remove() {
 }
 
 void Board::paint(const std::string &color) {
-    if (selected_id == 0 || !figures[selected_id]) {
+    if (selected_id == 0 || !figures[selected_id - 1]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
@@ -244,7 +245,7 @@ void Board::paint(const std::string &color) {
 }
 
 void Board::edit(int dimension) {
-    if (selected_id == 0 || !figures[selected_id]) {
+    if (selected_id == 0 || !figures[selected_id - 1]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
@@ -274,7 +275,7 @@ void Board::edit(int dimension) {
 }
 
 void Board::edit(int d1, int d2) {
-    if (selected_id == 0 || !figures[selected_id]) {
+    if (selected_id == 0 || !figures[selected_id - 1]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
@@ -298,7 +299,7 @@ void Board::edit(int d1, int d2) {
 }
 
 void Board::move(int x, int y) {
-    if (selected_id == 0 || !figures[selected_id]) {
+    if (selected_id == 0 || !figures[selected_id - 1]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }
@@ -329,7 +330,7 @@ void Board::move(int x, int y) {
 
 
 void Board::move(int d1, int d2, int d3, int d4) {
-    if (selected_id == 0 || !figures[selected_id]) {
+    if (selected_id == 0 || !figures[selected_id - 1]) {
         std::cout << "No figure was selected" << std::endl;
         return;
     }

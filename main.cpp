@@ -2,6 +2,7 @@
 #include <sstream>
 
 #include "Board.h"
+#include "Figure.h"
 
 void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
     std::istringstream iss(input);
@@ -101,6 +102,7 @@ void proccessCommand(std::string& input, const std::shared_ptr<Board>& board) {
 
 int main() {
     std::shared_ptr<Board> board = std::make_shared<Board>();    std::string input;
+    std::string path = "text.txt";
     std::string triangle = "triangle";
     std::string line = "line";
     std::string square = "square";
@@ -119,13 +121,13 @@ int main() {
     board->add(triangle, fill, white, 10, 1, 7);
     board -> add(circle, frame, yellow, 10, 15, 5);
     board -> add(line, fill, white, 10, 10, 20, 20);
-
     board->add(square, fill, magenta, 10, 15, 7);
     board->add(square, fill, yellow, 15, 10, 7);
     board->add(square, fill, cyan, 10, 10, 7);
     board->add(triangle, frame, red, 10, 10, 7);
     board->add(square, fill, blue, 15, 15, 7);
     board->print();
+
     std::cout << "--------------------------------------------------" << std::endl;
     board -> list();
     std::cout << "--------------------------------------------------" << std::endl;
@@ -143,9 +145,47 @@ int main() {
     board -> edit(10);
     board -> print();
     std::cout << "--------------------------------------------------" << std::endl;
+    board -> save(path);
     board -> select(5);
     board -> remove();
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
     board -> clear();
+    board -> list();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> load(path);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(7);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> edit(10);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> edit(1000);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> move(100, 100);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(6);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> edit(1, 2);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(3);
+    board -> edit(19, 15);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> load(path);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> list();
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> select(8);
+    std::cout << "--------------------------------------------------" << std::endl;
+    board -> paint(blue);
+    board -> print();
+    std::cout << "--------------------------------------------------" << std::endl;
 
 
     while (true) {
